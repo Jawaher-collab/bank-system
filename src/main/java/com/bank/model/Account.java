@@ -9,6 +9,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Account {
 
     @Id
@@ -17,7 +18,7 @@ public class Account {
 
     private String owner;
     private double balance;
-//    private String type;
+    //private String type;
 
     @Enumerated(EnumType.STRING)
     private AccountType type;
