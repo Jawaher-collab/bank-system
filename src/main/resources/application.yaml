@@ -1,4 +1,5 @@
 spring:
+
   application:
     name: bank-system
 
@@ -22,5 +23,21 @@ spring:
     init:
       mode: always
 
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: 336788219a48fe
+    password: bc631533a44a58
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+
 server:
-  port: 8085
+  port: 8000
+
+
+

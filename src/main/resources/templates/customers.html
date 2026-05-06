@@ -8,6 +8,19 @@
 
 <h1>Customers List</h1>
 
+<!-- Logout -->
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+
+<br/>
+
+<!-- Add New Customer -->
+<a href="/customers/add">Add New Customer</a>
+
+<br/><br/>
+
+<!-- Customers Table -->
 <table border="1">
     <tr>
         <th>ID</th>

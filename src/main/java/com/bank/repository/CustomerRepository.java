@@ -17,5 +17,6 @@ public interface CustomerRepository
 
     @EntityGraph(attributePaths = {"accounts"})
     List<Customer> findAll();
+    Optional<Customer> findByUsername(String username);
 
 }

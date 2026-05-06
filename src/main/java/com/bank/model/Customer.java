@@ -41,6 +41,15 @@ public class Customer {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    private String role = "ROLE_USER";
+
+    private boolean enabled = true;
+
     @OneToMany(mappedBy = "customer",
             cascade = CascadeType.ALL,
             orphanRemoval = true)

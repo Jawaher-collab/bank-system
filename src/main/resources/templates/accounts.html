@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>My Accounts</title>
+</head>
+<body>
+
+<h1>My Accounts</h1>
+
+<!-- اسم المستخدم الحالي -->
+<p>Welcome, <b><span sec:authentication="name"></span></b>!</p>
+
+<!-- زر logout -->
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Logout</button>
+</form>
+
+<br/>
+
+<!-- جدول الحسابات -->
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Balance</th>
+        <th>Status</th>
+    </tr>
+    <tr th:each="account : ${accounts}">
+        <td th:text="${account.id}"></td>
+        <td th:text="${account.type}"></td>
+        <td th:text="${account.balance}"></td>
+        <td th:text="${account.status}"></td>
+    </tr>
+</table>
+
+<!-- يظهر بس للـ ADMIN -->
+<div sec:authorize="hasRole('ADMIN')">
+    <br/>
+    <a href="/customers">Manage Customers</a>
+</div>
+
+</body>
+</html>
