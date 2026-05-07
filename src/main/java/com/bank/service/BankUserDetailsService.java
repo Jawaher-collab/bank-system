@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,12 +27,22 @@ public class BankUserDetailsService implements UserDetailsService {
                 .findByUsername(username)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found: " + username));
+        if (customer.isAccountLocked() && customer.getLockTime() != null) {
+            if (customer.getLockTime().plusMinutes(30).isBefore(LocalDateTime.now())) {
+                customer.setAccountLocked(false);
+                customer.setFailedAttempts(0);
+                customerRepository.save(customer);
+            }
+        }
 
         return new org.springframework.security.core.userdetails.User(
                 customer.getUsername(),
                 customer.getPassword(),
                 customer.isEnabled(),
-                true, true, true,
+                true,
+                true,
+                !customer.isAccountLocked(),  // ← غيّري true لهذا
+                //true,
                 List.of(new SimpleGrantedAuthority(customer.getRole()))
         );
     }

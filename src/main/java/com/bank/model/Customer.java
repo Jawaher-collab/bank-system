@@ -49,6 +49,9 @@ public class Customer {
     private String role = "ROLE_USER";
 
     private boolean enabled = true;
+    private int failedAttempts = 0;
+    private boolean accountLocked = false;
+    private LocalDateTime lockTime;
 
     @OneToMany(mappedBy = "customer",
             cascade = CascadeType.ALL,

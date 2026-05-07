@@ -3,9 +3,11 @@ package com.bank.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "accounts")
+@EntityListeners(AuditingEntityListener.class)  // ← الجديد
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

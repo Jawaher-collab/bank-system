@@ -25,8 +25,10 @@ public class SecurityConfig {
         http
                 .userDetailsService(userDetailsService)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/h2-console/**").permitAll() //show the page
                         .requestMatchers("/register", "/verify").permitAll()  // ← الجديد
+                        .requestMatchers("/actuator/health", "/actuator/info").permitAll()  // ← الجديد
+                        .requestMatchers("/actuator/**").hasRole("ADMIN")                   // ← الجديد
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/customers/add").hasRole("ADMIN")
                         .anyRequest().authenticated()
@@ -41,6 +43,15 @@ public class SecurityConfig {
                                 response.sendRedirect("/accounts");
                             }
                         })
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout")    // ← جديد
+                )
+                .sessionManagement(sm -> sm
+                        .sessionFixation().newSession()        // ← جديد
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false)
+                        .expiredUrl("/login?expired")
                 )
                 .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
                 .headers(headers -> headers
