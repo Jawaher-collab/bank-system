@@ -35,9 +35,14 @@ spring:
           starttls:
             enable: true
 
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+
 
 server:
-  port: 8000
+  port: 8001
 
 management:
   endpoints:
@@ -48,3 +53,12 @@ management:
     health:
       show-details: when-authorized
 
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+jwt:
+  secret: MySuperSecretKeyThatIsLongEnough1234567890

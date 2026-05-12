@@ -2,6 +2,7 @@ package com.bank.service;
 
 import com.bank.model.Customer;
 import com.bank.repository.CustomerRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -19,7 +20,8 @@ public class CustomerService {
 
     // Get customer by ID
     public Customer findById(Long id) {
-        return customerRepository.findById(id).orElse(null);
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No customer with id: " + id));
     }
 
     // Get customer by email

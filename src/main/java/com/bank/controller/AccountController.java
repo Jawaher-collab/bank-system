@@ -14,7 +14,7 @@ public class AccountController {
     private final AccountService accountService;
 
     // GET all accounts
-    // localhost:8081/api/accounts
+    // localhost:8081/api/accountsdcxdxxx
     @GetMapping
     public List<Account> getAll() {
         return accountService.findAll();
